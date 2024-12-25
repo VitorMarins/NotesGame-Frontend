@@ -1,20 +1,33 @@
 import { useState } from 'react';
-import { jwtDecode } from 'jwt-decode'; // Certifique-se de que está importando corretamente
+import { jwtDecode } from 'jwt-decode';
 import PropTypes from 'prop-types';
-import './createButton.css';
+import './CreateButton.css';
 
 export default function CreateButton({ adicionarJogo }) {
-    const decoded = jwtDecode(localStorage.getItem('token')); // Decodifica o token para obter o ID do usuário
+    const token = localStorage.getItem('token');
+    let usuarioId = null;
+
+    if (token) {
+        try {
+            const decoded = jwtDecode(token);
+            usuarioId = decoded.id;
+        } catch (error) {
+            console.error('Erro ao decodificar o token:', error);
+        }
+    }
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [novoJogo, setNovoJogo] = useState({
-        nome: '', // Campo obrigatório
-        imagem: '', // Campo obrigatório
-        descricao: '', // Campo opcional
-        status: '', // Campo obrigatório
-        categoria: '', // Campo obrigatório
-        plataforma: '', // Campo obrigatório
-        usuario: decoded.id, // Relacionado ao usuário autenticado
+        nome: '',
+        imagem: '',
+        descricao: '',
+        status: '',
+        categoria: '',
+        plataforma: '',
+        usuario: usuarioId,
     });
+
+    const [erroValidacao, setErroValidacao] = useState([]);
 
     const abrirModal = () => setIsModalOpen(true);
     const fecharModal = () => setIsModalOpen(false);
@@ -29,9 +42,10 @@ export default function CreateButton({ adicionarJogo }) {
         const camposVazios = camposObrigatorios.filter((campo) => !novoJogo[campo]);
 
         if (camposVazios.length > 0) {
-            alert(`Preencha os campos obrigatórios: ${camposVazios.join(', ')}`);
+            setErroValidacao(camposVazios);
             return false;
         }
+        setErroValidacao([]);
         return true;
     };
 
@@ -43,23 +57,25 @@ export default function CreateButton({ adicionarJogo }) {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(novoJogo),
             });
 
-            if (!response.ok) {
-                console.error(`Erro ao adicionar jogo: ${response.status}`);
-                return;
+            if (response.ok) {
+                alert('Jogo adicionado com sucesso!');
+                fecharModal();
+                adicionarJogo();
+            } else {
+                const errorData = await response.json();
+                alert(`Erro ao adicionar jogo: ${errorData.message || response.status}`);
             }
-
-            console.log('Jogo adicionado com sucesso!');
-            fecharModal();
-            adicionarJogo(); // Atualiza a lista de jogos na página inicial
         } catch (error) {
-            console.error('Erro ao salvar novo jogo:', error);
+            console.error('Erro ao salvar novo jogo:', error.message);
+            alert('Erro ao salvar novo jogo. Tente novamente mais tarde.');
         }
     };
+
 
     return (
         <>
@@ -91,17 +107,6 @@ export default function CreateButton({ adicionarJogo }) {
                                 value={novoJogo.imagem}
                                 onChange={handleChange}
                                 aria-label="URL da Imagem"
-                            />
-                        </label>
-
-                        <label>
-                            Descrição:
-                            <textarea
-                                name="descricao"
-                                value={novoJogo.descricao}
-                                onChange={handleChange}
-                                aria-label="Descrição do Jogo"
-                                rows="4"
                             />
                         </label>
 
@@ -141,6 +146,14 @@ export default function CreateButton({ adicionarJogo }) {
                                 aria-label="Plataforma do Jogo"
                             />
                         </label>
+
+                        {erroValidacao.length > 0 && (
+                            <div className="error-message">
+                                {erroValidacao.map((campo) => (
+                                    <p key={campo}>O campo {campo} é obrigatório</p>
+                                ))}
+                            </div>
+                            )}
 
                         <div className="modal-actions">
                             <button onClick={salvarNovoJogo} type="submit">

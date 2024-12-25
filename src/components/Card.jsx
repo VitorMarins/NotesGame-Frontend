@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import './card.css';
+import './Card.css';
 
 export default function Card({ id, imagem, titulo, status, plataforma, genero, atualizarJogos }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [jogoEditado, setJogoEditado] = useState({ titulo, status, plataforma, genero });
+    const [isLoading, setIsLoading] = useState(false);
+    const [updateStatus, setUpdateStatus] = useState(null); // 'success' ou 'error'
 
     const abrirModal = () => setIsModalOpen(true);
     const fecharModal = () => setIsModalOpen(false);
@@ -15,26 +17,46 @@ export default function Card({ id, imagem, titulo, status, plataforma, genero, a
     };
 
     const salvarAlteracoes = async () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            console.error('Token ausente');
+            return;
+        }
+
+        setIsLoading(true); // Ativa o indicador de carregamento
+        setUpdateStatus(null); // Reseta o status de atualização antes de enviar
+
         try {
             const response = await fetch(`https://listajogos-backend.onrender.com/api/jogos/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'authorization': `Bearer ${localStorage.getItem('token')}`,
+                    'authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify(jogoEditado),
             });
 
             if (!response.ok) {
+                setUpdateStatus('error');
                 console.error(`Erro ao atualizar jogo: ${response.status}`);
                 return;
             }
 
+            setUpdateStatus('success');
             console.log('Jogo atualizado com sucesso!');
             fecharModal();
-            atualizarJogos(); // Atualiza a lista de jogos na página inicial
+            atualizarJogos(); // Atualiza a lista de jogos
         } catch (error) {
+            setUpdateStatus('error');
             console.error('Erro ao salvar alterações:', error);
+        } finally {
+            setIsLoading(false); // Desativa o indicador de carregamento
+        }
+    };
+
+    const fecharModalNoFundo = (e) => {
+        if (e.target.className === 'modal') {
+            fecharModal();
         }
     };
 
@@ -49,7 +71,7 @@ export default function Card({ id, imagem, titulo, status, plataforma, genero, a
             </button>
 
             {isModalOpen && (
-                <div className="modal">
+                <div className="modal" onClick={fecharModalNoFundo}>
                     <div className="modal-content">
                         <h2>Editar Jogo</h2>
                         <label>
@@ -59,6 +81,7 @@ export default function Card({ id, imagem, titulo, status, plataforma, genero, a
                                 name="titulo"
                                 value={jogoEditado.titulo}
                                 onChange={handleChange}
+                                aria-label="Título do jogo"
                             />
                         </label>
                         <label>
@@ -68,6 +91,7 @@ export default function Card({ id, imagem, titulo, status, plataforma, genero, a
                                 name="status"
                                 value={jogoEditado.status}
                                 onChange={handleChange}
+                                aria-label="Status do jogo"
                             />
                         </label>
                         <label>
@@ -77,6 +101,7 @@ export default function Card({ id, imagem, titulo, status, plataforma, genero, a
                                 name="plataforma"
                                 value={jogoEditado.plataforma}
                                 onChange={handleChange}
+                                aria-label="Plataforma do jogo"
                             />
                         </label>
                         <label>
@@ -86,12 +111,19 @@ export default function Card({ id, imagem, titulo, status, plataforma, genero, a
                                 name="genero"
                                 value={jogoEditado.genero}
                                 onChange={handleChange}
+                                aria-label="Gênero do jogo"
                             />
                         </label>
+
                         <div className="modal-actions">
-                            <button onClick={salvarAlteracoes}>Salvar</button>
+                            <button disabled={isLoading} onClick={salvarAlteracoes}>
+                                {isLoading ? 'Salvando...' : 'Salvar'}
+                            </button>
                             <button onClick={fecharModal}>Cancelar</button>
                         </div>
+                        
+                        {updateStatus === 'success' && <div className="success-message">Jogo atualizado com sucesso!</div>}
+                        {updateStatus === 'error' && <div className="error-message">Erro ao atualizar o jogo.</div>}
                     </div>
                 </div>
             )}
