@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+button {
+  cursor: pointer;
+}
+
+.price {
+  font-size: 1rem;
+  color: #000;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Garante que a altura do conteúdo ocupe 100% da tela */
+}
+
+main {
+  flex: 1; 
+}

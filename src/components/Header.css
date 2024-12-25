@@ -1,0 +1,42 @@
+#header-container {
+    width: 100vw; /* Garante que o Header ocupe toda a largura */
+    background: linear-gradient(90deg, #021320 0%, #023A60 51.5%, #022036 100%);
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    padding: 20px 40px;
+    color: #FFF;
+    box-sizing: border-box; /* Inclui o padding dentro do tamanho total */
+}
+
+#header-container h1 {
+    font-size: 2em;
+    margin: 0;
+} 
+
+#nav-container {
+    display: flex;
+    gap: 2em;
+}
+.btn-nav {
+    background: transparent;
+    border: none;
+    color: inherit;
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+}
+
+.btn-nav:hover {
+    transform: scale(1.2);
+}
+
+@media (max-width: 768px) {
+    #header-container {
+        padding: 10px;
+    }
+
+    #header-container h1 {
+        font-size: 1.5em;
+    }
+}

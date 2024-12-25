@@ -1,0 +1,88 @@
+/* Estilo geral */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Helvetica;
+}
+body {
+  background-color: #fafafa;
+}
+
+#logo-container {
+  margin: 0px auto 0;
+  text-align: center;
+}
+
+#logo_cad {
+  width: 15%;
+  height: 15%;
+}
+
+#form-cad-container {
+  text-align: center;
+  background-color: #fff;
+  margin: 2% auto 20px;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+  padding: 20px;
+  width: 40%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#form-cad-container label {
+  display: block;
+  text-align: left;
+  margin-top: 10px;
+}
+
+#form-cad-container input {
+  font-size: 14px;
+  padding: 10px;
+  background-color: #fafafa;
+  border: 1px solid #dbdbdb;
+  border-radius: 40px;
+  width: 100%;
+}
+
+button[type="submit"] {
+  width: 40%;
+  margin: 20px auto 0;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.1s;
+}
+
+button[type="submit"]:hover {
+  background-color: #439dfd;
+}
+
+/* LOGIN */
+#login-container {
+  text-align: center;
+  align-items: center;
+  background-color: #fff;
+  margin: 0 auto 10px;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+}
+
+#login-container p {
+  font-size: 16px;
+  color: #262626;
+}
+
+#login-container a {
+  color: #4a95f6;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#login-container a:hover {
+  cursor: pointer;
+}
