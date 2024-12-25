@@ -1,9 +1,9 @@
 import { useEffect, useState, useCallback } from 'react';
 import './PaginaHome.css';
-import Header from './../../components/Header';
-import Card from './../../components/Card';
-import Footer from './../../components/Footer';
-import CreateButton from './../../components/CreateButton';
+import Header from '../../components/Header';
+import Card from '../../components/Card';
+import Footer from '../../components/Footer';
+import CreateButton from '../../components/CreateButton';
 
 function PaginaHome() {
   const [jogos, setJogos] = useState([]);
