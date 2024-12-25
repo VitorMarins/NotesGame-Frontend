@@ -54,6 +54,33 @@ export default function Card({ id, imagem, titulo, status, plataforma, genero, a
         }
     };
 
+    const excluirJogo = async () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            console.error('Token ausente');
+            return;
+        }
+        try {
+            const response = await fetch(`https://listajogos-backend.onrender.com/api/jogos/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'authorization': `Bearer ${token}`,
+                },
+            });
+            if (!response.ok) {
+                console.error(`Erro ao excluir jogo: ${response.status}`);
+                return;
+            }
+            console.log('Jogo excluido com sucesso!');
+            fecharModal();
+            atualizarJogos();
+        } catch (error) {
+            console.error('Erro ao excluir jogo:', error);
+            
+        }
+    }
+
     const fecharModalNoFundo = (e) => {
         if (e.target.className === 'modal') {
             fecharModal();
@@ -119,6 +146,7 @@ export default function Card({ id, imagem, titulo, status, plataforma, genero, a
                             <button disabled={isLoading} onClick={salvarAlteracoes}>
                                 {isLoading ? 'Salvando...' : 'Salvar'}
                             </button>
+                            <button onClick={excluirJogo}>Excluir</button>
                             <button onClick={fecharModal}>Cancelar</button>
                         </div>
                         

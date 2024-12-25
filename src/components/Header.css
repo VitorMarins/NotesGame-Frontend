@@ -9,7 +9,13 @@
     box-sizing: border-box; /* Inclui o padding dentro do tamanho total */
 }
 
-#header-container h1 {
+#titulo {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+#titulo h1 {
     font-size: 2em;
     margin: 0;
 } 
@@ -22,6 +28,12 @@
     background: transparent;
     border: none;
     color: inherit;
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+}
+
+#nome-usuario{
     display: flex;
     gap: 0.5em;
     align-items: center;

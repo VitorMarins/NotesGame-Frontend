@@ -3,20 +3,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Helvetica;
+  font-family: Arial, Helvetica, sans-serif;
 }
 body {
   background-color: #fafafa;
-}
-
-#logo-container {
-  margin: 0px auto 0;
-  text-align: center;
-}
-
-#logo_cad {
-  width: 15%;
-  height: 15%;
 }
 
 #form-cad-container {
@@ -63,26 +53,34 @@ button[type="submit"]:hover {
 }
 
 /* LOGIN */
+
 #login-container {
   text-align: center;
-  align-items: center;
   background-color: #fff;
-  margin: 0 auto 10px;
+  margin: 2% auto 2rem;
   border: 1px solid #dbdbdb;
   border-radius: 10px;
-}
-
-#login-container p {
-  font-size: 16px;
-  color: #262626;
+  padding: 20px;
+  width: 40%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 #login-container a {
-  color: #4a95f6;
-  font-weight: bold;
+  color: #007bff;
   text-decoration: none;
+  cursor: pointer;
 }
 
 #login-container a:hover {
-  cursor: pointer;
+  text-decoration: underline;
 }
+/* Reponsividade */
+@media (max-width: 768px) {
+  #form-cad-container {
+    width: 80%;
+  }
+  #login-container {
+    width: 80%;
+  }
+}
+

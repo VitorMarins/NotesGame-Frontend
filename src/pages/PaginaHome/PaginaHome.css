@@ -1,7 +1,18 @@
+main h1 {
+  text-align: center;
+  
+}
+
+#create-button-container {
+  display: flex;
+  justify-content: right;
+  margin-right: 1rem;
+}
+
 #cards-container {
     margin: 0 auto; /* Centraliza horizontalmente o container */
-    padding: 1rem;
-    margin-top: 3rem;
+    padding: 0.5rem 1rem; /* Adiciona um espaçamento interno */
+    margin-top: 1.5rem;
     display: grid; /* Utiliza grid layout */
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Responsividade e alinhamento */
     gap: 1em; /* Espaçamento entre os cards */
@@ -17,6 +28,24 @@
     -webkit-animation: spin 2s linear infinite; /* Safari */
     animation: spin 2s linear infinite;
     margin: 0 auto;
+  }
+  
+  .login-message {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2rem;
+  }
+
+  .login-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin: 10px auto;
+    display: block;
+    text-align: center;
   }
   
   /* Safari */

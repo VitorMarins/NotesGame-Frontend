@@ -1,53 +1,79 @@
 import { useEffect, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 import './PaginaHome.css';
-import Header from '../../components/Header';
-import Card from '../../components/Card';
-import Footer from '../../components/Footer';
-import CreateButton from '../../components/CreateButton';
+import { Header, Footer, CreateButton, Card } from './../../imports/importsComponents.jsx';
 
 function PaginaHome() {
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+  let usuarioId = null;
+  if (token) {
+        try {
+            const decoded = jwtDecode(token);
+            usuarioId = decoded.id;
+        } catch (error) {
+            console.error('Erro ao decodificar o token:', error);
+        }
+    }
+
   const [jogos, setJogos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const fetchJogos = async () => {
-    try {
-      const response = await fetch('https://listajogos-backend.onrender.com/api/jogos', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'authorization': `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
-
-      if (!response.ok) {
-        console.error(`Erro HTTP: ${response.status}`);
-        return [];
-      }
-
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error('Erro ao buscar jogos:', error);
-      return [];
-    }
-  };
-
   const carregarJogos = useCallback(async () => {
     setIsLoading(true);
+    const fetchJogos = async () => {
+      try {
+        const response = await fetch(`https://listajogos-backend.onrender.com/api/jogos/usuario/${usuarioId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'authorization': `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          console.error(`Erro HTTP: ${response.status}`);
+          return [];
+        }
+
+        const data = await response.json();
+        return data;
+      } catch (error) {
+        console.error('Erro ao buscar jogos:', error);
+        return [];
+      }
+    };
     const jogosData = await fetchJogos();
     setJogos(jogosData);
     setIsLoading(false);
-  }, []);
+  }, [token, usuarioId]);
 
   useEffect(() => {
     carregarJogos();
   }, [carregarJogos]);
 
+  if (!token) {
+    return (
+      <>
+        <Header />
+        <main>
+          <p className="login-message">Você precisa estar logado para acessar essa página.</p>
+          <button className="login-button" onClick={() => navigate('/login')}>Entrar</button>
+        </main>
+        <Footer />
+      </>
+    );
+  };
+
   return (
     <>
       <Header />
       <main>
-        <CreateButton adicionarJogo={carregarJogos} />
+        <h1>Seus Jogos</h1>
+        <div id="create-button-container">
+          <CreateButton adicionarJogo={carregarJogos} />
+        </div>
         <section id="cards-container">
           {isLoading ? (
             <div className="loader"></div>
@@ -72,6 +98,6 @@ function PaginaHome() {
       <Footer />
     </>
   );
-}
+};
 
 export default PaginaHome;

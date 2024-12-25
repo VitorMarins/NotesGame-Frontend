@@ -38,24 +38,6 @@
     color: #ffcc00;
 }
 
-
-.social-icons {
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-.social-icons a {
-    color: #fff;
-    font-size: 1.5rem;
-    transition: color 0.3s ease-in-out;
-}
-
-.social-icons a:hover {
-    color: #ffcc00;
-}
-
 /* Responsividade */
 @media (max-width: 768px) {
     .footer {
@@ -65,9 +47,5 @@
 
     .footer-links button {
         font-size: 0.6em;
-    }
-
-    .social-icons a {
-        font-size: 1.2rem;
     }
 }

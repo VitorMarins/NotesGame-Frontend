@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './PaginaCadastro.css';
-import Header from './../../components/Header';
-import Footer from './../../components/Footer';
+import { Header, Footer } from './../../imports/importsComponents.jsx';
 
 function Cadastro() {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [senha, setSenha] = useState('');
+  const [confirmSenha, setConfirmSenha] = useState('');
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
@@ -25,14 +24,14 @@ function Cadastro() {
       newErrors.email = 'Formato de email inválido';
     }
 
-    if (!password) {
-      newErrors.password = 'Senha é obrigatória';
-    } else if (password.length < 6) {
-      newErrors.password = 'Senha deve ter pelo menos 6 caracteres';
+    if (!senha) {
+      newErrors.senha = 'Senha é obrigatória';
+    } else if (senha.length < 6) {
+      newErrors.senha = 'Senha deve ter pelo menos 6 caracteres';
     }
 
-    if (password !== confirmPassword) {
-      newErrors.confirmPassword = 'As senhas não coincidem';
+    if (senha !== confirmSenha) {
+      newErrors.confirmSenha = 'As senhas não coincidem';
     }
 
     setErrors(newErrors);
@@ -40,33 +39,32 @@ function Cadastro() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
       try {
-        const user = { nome, email, password };
-        const response = fetch('http://localhost:3001/users', {
+        const user = { nome, email, senha };
+        const response = await fetch('https://listajogos-backend.onrender.com/api/auth/registrar', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(user),  
         });
-          if (response.ok) {
-            navigate('/login');
-          } else {
-            throw new Error('Erro ao criar conta');
-          }
+        if (response.ok) {
+          navigate('/login');
+        } else {
+          throw new Error('Erro ao criar conta');
+        }
       } catch (error) {
         console.error(error);
       }
-      navigate('/');
     }
   };
 
   return (
     <>
-    <Header />
+      <Header />
       <form onSubmit={handleSubmit} id='form-cad-container'>
         <h2>Criar uma nova conta</h2>
           <label>Nome de Usuário</label>
@@ -86,25 +84,26 @@ function Cadastro() {
           <label>Senha</label>
           <input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
           />
-          {errors.password && <p id='error'>{errors.password}</p>}
+          {errors.senha && <p id='error'>{errors.senha}</p>}
           <label>Confirme a Senha</label>
           <input
             type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            value={confirmSenha}
+            onChange={(e) => setConfirmSenha(e.target.value)}
           />
-          {errors.confirmPassword && (
-            <p id='error'>{errors.confirmPassword}</p>
+          {errors.confirmSenha && (
+            <p id='error'>{errors.confirmSenha}</p>
           )}
         <button type="submit">Criar Conta</button>
         </form>
+
         <div id="login-container">
             <p><a onClick={() => navigate('/login')}>Tem uma conta?</a></p>
         </div>
-        <Footer />
+      <Footer />  
     </>
   );
 }

@@ -9,15 +9,10 @@ button {
   cursor: pointer;
 }
 
-.price {
-  font-size: 1rem;
-  color: #000;
-}
-
 #root {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Garante que a altura do conteúdo ocupe 100% da tela */
+  min-height: 100vh;
 }
 
 main {

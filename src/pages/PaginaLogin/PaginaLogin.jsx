@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import './PaginaLogin.css';
 import { useNavigate } from 'react-router-dom';
-import Header from './../../components/Header';
-import Footer from './../../components/Footer';
+import { Header, Footer } from './../../imports/importsComponents.jsx';
 
 function Login() {
   const navigate = useNavigate();
