@@ -2,7 +2,7 @@
 
 Um projeto feito para treinar minhas habilidades de React.
 
-## Link do depilou
+## Link do deploy
 ```
 https://notesgame.vercel.app/
 ```
