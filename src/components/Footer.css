@@ -15,37 +15,10 @@
     margin: 0;
 }
 
-.footer-links {
-    margin-top: 1rem;
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-}
-
-.footer-links button {
-    background: none;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    font-size: 1rem;
-    text-decoration: underline;
-    transition: color 0.3s ease-in-out;
-}
-
-.footer-links button:hover {
-    color: #ffcc00;
-}
-
 /* Responsividade */
 @media (max-width: 768px) {
     .footer {
         font-size: 0.6rem;
         padding: 1rem;
-    }
-
-    .footer-links button {
-        font-size: 0.6em;
     }
 }

@@ -97,7 +97,7 @@ function Cadastro() {
           {errors.confirmSenha && (
             <p id='error'>{errors.confirmSenha}</p>
           )}
-        <button type="submit">Criar Conta</button>
+        <button type="submit" id='btn-sbt'>Criar Conta</button>
         </form>
 
         <div id="login-container">

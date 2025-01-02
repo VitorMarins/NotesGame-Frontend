@@ -113,13 +113,17 @@ export default function Card({ id, imagem, titulo, status, plataforma, genero, a
                         </label>
                         <label>
                             Status:
-                            <input
-                                type="text"
+                            <select
                                 name="status"
                                 value={jogoEditado.status}
                                 onChange={handleChange}
-                                aria-label="Status do jogo"
-                            />
+                                aria-label="Status do Jogo"
+                            >
+                                <option value="">Selecione o status</option>
+                                <option value="Jogando">Jogando</option>
+                                <option value="Finalizado">Finalizado</option>
+                                <option value="Planejando Jogar">Planejando Jogar</option>
+                            </select>
                         </label>
                         <label>
                             Plataforma:

@@ -1,21 +1,10 @@
-import { useState } from 'react';
-import { jwtDecode } from 'jwt-decode';
+import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './CreateButton.css';
+import { AuthContext } from './../contexts/contexts';
 
 export default function CreateButton({ adicionarJogo }) {
-    const token = localStorage.getItem('token');
-    let usuarioId = null;
-
-    if (token) {
-        try {
-            const decoded = jwtDecode(token);
-            usuarioId = decoded.id;
-        } catch (error) {
-            console.error('Erro ao decodificar o token:', error);
-        }
-    }
-
+    const { usuarioId } = useContext(AuthContext);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [novoJogo, setNovoJogo] = useState({
         nome: '',
@@ -26,9 +15,8 @@ export default function CreateButton({ adicionarJogo }) {
         plataforma: '',
         usuario: usuarioId,
     });
-
     const [erroValidacao, setErroValidacao] = useState([]);
-
+    const token = localStorage.getItem('token');
     const abrirModal = () => setIsModalOpen(true);
     const fecharModal = () => setIsModalOpen(false);
 

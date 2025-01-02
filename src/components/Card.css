@@ -5,13 +5,13 @@
     padding: 16px;
     max-width: 20em;
     text-align: left;
-    transition: box-shadow 0.3s ease;
-    transition: transform 0.3s ease;
+    transition:  0.3s ease;
     border-radius: 8px;
 }
 
 /* Card hover effect */
 .card:hover {
+    background-color: #bdecff;
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
     cursor: pointer;
     transform: scale(1.05);

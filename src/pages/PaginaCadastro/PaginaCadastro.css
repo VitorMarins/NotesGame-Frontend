@@ -35,7 +35,7 @@ body {
   width: 100%;
 }
 
-button[type="submit"] {
+#btn-sbt {
   width: 40%;
   margin: 20px auto 0;
   padding: 10px;
@@ -48,7 +48,7 @@ button[type="submit"] {
   transition: 0.1s;
 }
 
-button[type="submit"]:hover {
+#btn-sbt:hover {
   background-color: #439dfd;
 }
 
