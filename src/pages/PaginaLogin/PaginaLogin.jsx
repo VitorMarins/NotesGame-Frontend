@@ -39,8 +39,7 @@ function Login() {
     <main>
         {/* Login */}
         <div id="login-container">
-            <h2>Lista de jogos - Login</h2>
-            <p>Entre com sua conta</p>
+            <h2>Entre com sua conta</h2>
             <form id="login-form" onSubmit={handleLogin}>
               <input
                 type="email"
@@ -55,11 +54,15 @@ function Login() {
                 placeholder="Senha"
                 value={senha}
                 onChange={(e) => setSenha(e.target.value)}
+                autoComplete='false'
                 required />
               <input
                 type="submit"
                 value="Login" />
             </form>
+        </div>
+        <div id="cadastro-container">
+          <a onClick={() => navigate('/cadastro')}>Não tem uma conta. Crie uma conta </a>
         </div>
     </main>
     <Footer />

@@ -4,6 +4,7 @@ import './PaginaHome.css';
 import { Header, Footer, CreateButton, Card } from './../../imports/importsComponents.jsx';
 import { AuthContext } from './../../contexts/contexts';
 
+
 function PaginaHome() {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
@@ -41,18 +42,13 @@ function PaginaHome() {
     carregarJogos();
   }, [carregarJogos]);
 
-  if (!token) {
-    return (
-      <>
-        <Header />
-        <main>
-          <p className="login-message">Você precisa estar logado para acessar essa página.</p>
-          <button className="login-button" onClick={() => navigate('/login')}>Entrar</button>
-        </main>
-        <Footer />
-      </>
-    );
-  };
+  useEffect(() => {
+    if (!token) {
+      navigate('/login');
+    }
+  }, [token, navigate]);
+  
+    
 
   return (
     <>
@@ -62,26 +58,21 @@ function PaginaHome() {
         <div id="create-button-container">
           <CreateButton adicionarJogo={carregarJogos} />
         </div>
-        <section id="cards-container">
-          {isLoading ? (
-            <div className="loader"></div>
-          ) : jogos.length > 0 ? (
-            jogos.map((jogo) => (
-              <Card
-                key={jogo._id}
-                id={jogo._id}
-                imagem={jogo.imagem}
-                titulo={jogo.nome}
-                status={jogo.status}
-                plataforma={jogo.plataforma}
-                genero={jogo.categoria}
-                atualizarJogos={carregarJogos} // Passa a função para o Card
-              />
-            ))
-          ) : (
-            <p id="no-jogos-message">Nenhum jogo encontrado.</p>
-          )}
-        </section>
+          <section id="cards-container">
+           {isLoading ? (
+              <div className="loader"></div>
+            ) : jogos.length > 0 ? (
+              jogos.map((jogo) => (
+                <Card
+                  jogo={jogo}
+                  key={jogo._id}
+                  atualizarJogos={carregarJogos} // Passa a função para o Card
+                />
+              ))
+            ) : (
+              <p id="no-jogos-message">Nenhum jogo encontrado.</p>
+            )}
+          </section>
       </main>
       <Footer />
     </>

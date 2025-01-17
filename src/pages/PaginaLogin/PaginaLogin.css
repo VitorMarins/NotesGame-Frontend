@@ -49,6 +49,37 @@ main {
   margin-bottom: 20px;
 }
 
-#login-container p {
-  margin-bottom: 10px;
+/* Cadastro */
+
+#cadastro-container {
+  background-color: #fff;
+  margin: 0 auto;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+  padding: 20px;
+  width: 25%;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#cadastro-container a {
+  color: #007bff;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#cadastro-container a:hover {
+  text-decoration: underline;
+}
+
+/* Resposividade */
+
+@media (max-width: 740px) {
+  #login-container {
+    width: 100%;
+  }
+
+  #cadastro-container {
+    width: 80%;
+  }
 }

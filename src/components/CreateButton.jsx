@@ -11,7 +11,7 @@ export default function CreateButton({ adicionarJogo }) {
         imagem: '',
         descricao: '',
         status: '',
-        categoria: '',
+        genero: '',
         plataforma: '',
         usuario: usuarioId,
     });
@@ -26,7 +26,7 @@ export default function CreateButton({ adicionarJogo }) {
     };
 
     const validarFormulario = () => {
-        const camposObrigatorios = ['nome', 'imagem', 'status', 'categoria', 'plataforma'];
+        const camposObrigatorios = ['nome', 'imagem', 'status', 'genero', 'plataforma'];
         const camposVazios = camposObrigatorios.filter((campo) => !novoJogo[campo]);
 
         if (camposVazios.length > 0) {
@@ -107,20 +107,20 @@ export default function CreateButton({ adicionarJogo }) {
                                 aria-label="Status do Jogo"
                             >
                                 <option value="">Selecione o status</option>
+                                <option value="Planejando Jogar">Planejando Jogar</option>
                                 <option value="Jogando">Jogando</option>
                                 <option value="Finalizado">Finalizado</option>
-                                <option value="Planejando Jogar">Planejando Jogar</option>
                             </select>
                         </label>
 
                         <label>
-                            Categoria:
+                            Gênero:
                             <input
                                 type="text"
-                                name="categoria"
-                                value={novoJogo.categoria}
+                                name="genero"
+                                value={novoJogo.genero}
                                 onChange={handleChange}
-                                aria-label="Categoria do Jogo"
+                                aria-label="Gênero do Jogo"
                             />
                         </label>
 

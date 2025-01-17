@@ -2,9 +2,14 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Card.css';
 
-export default function Card({ id, imagem, titulo, status, plataforma, genero, atualizarJogos }) {
+export default function Card({ jogo, atualizarJogos }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [jogoEditado, setJogoEditado] = useState({ titulo, status, plataforma, genero });
+    const [jogoEditado, setJogoEditado] = useState({ 
+        nome: jogo.nome || '', 
+        status: jogo.status || '', 
+        plataforma: jogo.plataforma || '', 
+        genero: jogo.genero || '' 
+    });
     const [isLoading, setIsLoading] = useState(false);
     const [updateStatus, setUpdateStatus] = useState(null); // 'success' ou 'error'
 
@@ -27,7 +32,7 @@ export default function Card({ id, imagem, titulo, status, plataforma, genero, a
         setUpdateStatus(null); // Reseta o status de atualização antes de enviar
 
         try {
-            const response = await fetch(`https://listajogos-backend.onrender.com/api/jogos/${id}`, {
+            const response = await fetch(`https://listajogos-backend.onrender.com/api/jogos/${jogo._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -61,7 +66,7 @@ export default function Card({ id, imagem, titulo, status, plataforma, genero, a
             return;
         }
         try {
-            const response = await fetch(`https://listajogos-backend.onrender.com/api/jogos/${id}`, {
+            const response = await fetch(`https://listajogos-backend.onrender.com/api/jogos/${jogo._id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,12 +94,12 @@ export default function Card({ id, imagem, titulo, status, plataforma, genero, a
 
     return (
         <>
-            <button className="card" title={titulo} onClick={abrirModal}>
-                <img src={imagem} alt={`Imagem de ${titulo}`} />
-                <h2>{titulo}</h2>
-                <h3>{`Status: ${status}`}</h3>
-                <p>{`Plataforma: ${plataforma}`}</p>
-                <p>{`Gênero: ${genero}`}</p>
+            <button className="card" title={jogo.nome} onClick={abrirModal}>
+                <img src={jogo.imagem} alt={`Imagem de ${jogo.nome}`} />
+                <h2>{jogo.nome}</h2>
+                <h3>{`Status: ${jogo.status}`}</h3>
+                <p>{`Plataforma: ${jogo.plataforma}`}</p>
+                <p>{`Gênero: ${jogo.genero}`}</p>
             </button>
 
             {isModalOpen && (
@@ -106,7 +111,7 @@ export default function Card({ id, imagem, titulo, status, plataforma, genero, a
                             <input
                                 type="text"
                                 name="titulo"
-                                value={jogoEditado.titulo}
+                                value={jogoEditado.nome}
                                 onChange={handleChange}
                                 aria-label="Título do jogo"
                             />
@@ -120,9 +125,9 @@ export default function Card({ id, imagem, titulo, status, plataforma, genero, a
                                 aria-label="Status do Jogo"
                             >
                                 <option value="">Selecione o status</option>
+                                <option value="Planejando Jogar">Planejando Jogar</option>
                                 <option value="Jogando">Jogando</option>
                                 <option value="Finalizado">Finalizado</option>
-                                <option value="Planejando Jogar">Planejando Jogar</option>
                             </select>
                         </label>
                         <label>
@@ -164,11 +169,13 @@ export default function Card({ id, imagem, titulo, status, plataforma, genero, a
 }
 
 Card.propTypes = {
-    id: PropTypes.string.isRequired,
-    imagem: PropTypes.string.isRequired,
-    titulo: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
-    plataforma: PropTypes.string.isRequired,
-    genero: PropTypes.string.isRequired,
+    jogo: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        nome: PropTypes.string.isRequired,
+        status: PropTypes.string.isRequired,
+        plataforma: PropTypes.string.isRequired,
+        genero: PropTypes.string.isRequired,
+        imagem: PropTypes.string.isRequired
+    }),
     atualizarJogos: PropTypes.func.isRequired,
 };

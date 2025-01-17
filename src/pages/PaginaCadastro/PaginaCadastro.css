@@ -1,10 +1,3 @@
-/* Estilo geral */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-}
 body {
   background-color: #fafafa;
 }
@@ -16,23 +9,17 @@ body {
   border: 1px solid #dbdbdb;
   border-radius: 10px;
   padding: 20px;
-  width: 40%;
+  width: 30%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-#form-cad-container label {
-  display: block;
-  text-align: left;
-  margin-top: 10px;
 }
 
 #form-cad-container input {
   font-size: 14px;
+  margin-top: 10px;
   padding: 10px;
-  background-color: #fafafa;
-  border: 1px solid #dbdbdb;
-  border-radius: 40px;
-  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 90%;
 }
 
 #btn-sbt {
@@ -42,7 +29,7 @@ body {
   background-color: #007bff;
   color: #fff;
   border: none;
-  border-radius: 40px;
+  border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
   transition: 0.1s;
@@ -57,7 +44,7 @@ body {
 #login-container {
   text-align: center;
   background-color: #fff;
-  margin: 2% auto 2rem;
+  margin: 2% auto 7.5em;
   border: 1px solid #dbdbdb;
   border-radius: 10px;
   padding: 20px;

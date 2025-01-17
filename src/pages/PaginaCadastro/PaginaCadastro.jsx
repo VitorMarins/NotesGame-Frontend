@@ -67,41 +67,38 @@ function Cadastro() {
       <Header />
       <form onSubmit={handleSubmit} id='form-cad-container'>
         <h2>Criar uma nova conta</h2>
-          <label>Nome de Usuário</label>
-          <input
-            type="text"
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
-          />
-          {errors.nome && <p id='error'>{errors.nome}</p>}
-          <label>Email</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          {errors.email && <p id='error'>{errors.email}</p>}
-          <label>Senha</label>
-          <input
-            type="password"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-          />
-          {errors.senha && <p id='error'>{errors.senha}</p>}
-          <label>Confirme a Senha</label>
-          <input
-            type="password"
-            value={confirmSenha}
-            onChange={(e) => setConfirmSenha(e.target.value)}
-          />
-          {errors.confirmSenha && (
-            <p id='error'>{errors.confirmSenha}</p>
-          )}
+        <input
+        type="text"
+        placeholder='Digite seu nome'
+        value={nome}
+        onChange={(e) => setNome(e.target.value)}
+        />
+        {errors.nome && <p id='error'>{errors.nome}</p>}
+        <input
+        type="email"
+        placeholder='Digite seu e-mail'
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        />
+        {errors.email && <p id='error'>{errors.email}</p>}
+        <input
+        type="password"
+        placeholder='Digite sua senha'
+        value={senha}
+        onChange={(e) => setSenha(e.target.value)}
+        />
+        {errors.senha && <p id='error'>{errors.senha}</p>}
+        <input
+        type="password"
+        placeholder='Digite novamente sua senha'
+        value={confirmSenha}
+        onChange={(e) => setConfirmSenha(e.target.value)}
+        />
+        {errors.confirmSenha && <p id='error'>{errors.confirmSenha}</p>}
         <button type="submit" id='btn-sbt'>Criar Conta</button>
         </form>
-
         <div id="login-container">
-            <p><a onClick={() => navigate('/login')}>Tem uma conta?</a></p>
+            <a onClick={() => navigate('/login')}>Tem uma conta?</a>
         </div>
       <Footer />  
     </>
